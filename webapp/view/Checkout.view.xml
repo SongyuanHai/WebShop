@@ -306,7 +306,7 @@
 									</TextArea>
 								</form:SimpleForm>
 							</WizardStep>
-							<WizardStep id="deliveryTypeStep" title="{i18n>checkoutDeliveryTypeTitle}" icon="sap-icon://insurance-car">
+							<WizardStep id="deliveryTypeStep" title="{i18n>checkoutDeliveryTypeTitle}" icon="sap-icon://insurance-car" nextStep="assemblyChoiceStep">
 								<!--<Text class="sapUiSmallMarginBottom" text="{i18n>checkoutDeliveryTypeText}"/>-->
 								<!--<HBox renderType="Bare" alignItems="Center" justifyContent="Center" width="100%">-->
 								<!--	<SegmentedButton id="deliveryType" selectedKey="{/SelectedDeliveryMethod}">-->
@@ -329,6 +329,23 @@
 										</appointments>
 									</SinglePlanningCalendar>
 								</VBox>
+							</WizardStep>
+							<WizardStep id="assemblyChoiceStep" title="{i18n>checkoutAssemblyChoiceTitle}" icon="sap-icon://add-equipment">
+								<Text class="sapUiSmallMarginBottom" text="{i18n>checkoutAssemblyChoiceText}"/>
+								<HBox renderType="Bare" alignItems="Center" justifyContent="Center" width="100%">
+									<form:SimpleForm layout="ResponsiveGridLayout" editable="true">
+										<Label text="{i18n>checkoutAssemblyService}">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<CheckBox id="assemblyChoiceCB" selected="false">
+											<layoutData>
+												<layout:GridData span="XL8 L8 M8 S12"/>
+											</layoutData>
+										</CheckBox>
+									</form:SimpleForm>
+								</HBox>
 							</WizardStep>
 						</steps>
 					</Wizard>
