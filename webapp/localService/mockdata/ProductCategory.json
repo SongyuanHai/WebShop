@@ -70,4 +70,8 @@
 	"CategoryName": "Refrigerators",
 	"Category": "RG",
 	"NumberOfProducts": 3
+},{
+	"CategoryName": "Floors",
+	"Category": "FL",
+	"NumberOfProducts": 3
 }]

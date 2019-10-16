@@ -221,7 +221,7 @@
 									vSpacing="0"
 									hSpacing="0">
 									<FlexBox
-										height="3.5rem"
+										height="4.5rem"
 										renderType="Bare">
 										<l:VerticalLayout>
 											<ObjectIdentifier
@@ -309,7 +309,7 @@
 									vSpacing="0"
 									hSpacing="0">
 									<FlexBox
-										height="3.5rem"
+										height="4.5rem"
 										renderType="Bare">
 										<l:VerticalLayout>
 											<ObjectIdentifier
