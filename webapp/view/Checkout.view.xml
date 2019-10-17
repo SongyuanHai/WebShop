@@ -13,7 +13,7 @@
 				<content>
 					<Wizard id="shoppingCartWizard" complete="checkCompleted" enableBranching="true" finishButtonText="{i18n>checkoutWizardReviewbtn}">
 						<steps>
-							<WizardStep id="contentsStep" nextStep="paymentTypeStep" title="{i18n>checkoutContentsTitle}" icon="sap-icon://cart">
+							<WizardStep id="contentsStep" nextStep="deliveryTypeStep" title="{i18n>checkoutContentsTitle}" icon="sap-icon://cart">
 								<List id="entryList" noDataText="{i18n>cartNoData}"
 									items="{ path : 'cartProducts>/cartEntries', sorter : { path : 'Name', descending : false } }">
 									<items>
@@ -32,6 +32,47 @@
 										<Text text="{ path : 'cartProducts>/cartEntries', formatter : '.formatter.totalPrice' } USD"/>
 									</contentRight>
 								</Bar>
+							</WizardStep>
+							<WizardStep id="deliveryTypeStep" title="{i18n>checkoutDeliveryTypeTitle}" icon="sap-icon://insurance-car" nextStep="assemblyChoiceStep">
+								<!--<Text class="sapUiSmallMarginBottom" text="{i18n>checkoutDeliveryTypeText}"/>-->
+								<!--<HBox renderType="Bare" alignItems="Center" justifyContent="Center" width="100%">-->
+								<!--	<SegmentedButton id="deliveryType" selectedKey="{/SelectedDeliveryMethod}">-->
+								<!--		<items>-->
+								<!--			<SegmentedButtonItem key="Standard Delivery" text="{i18n>checkoutDeliveryTypeStandard}"/>-->
+								<!--			<SegmentedButtonItem id="expressDelivery" key="Express Delivery" text="{i18n>checkoutDeliveryTypeExpress}"/>-->
+								<!--		</items>-->
+								<!--	</SegmentedButton>-->
+								<!--</HBox>-->
+								<VBox>
+									<SinglePlanningCalendar id="SPC1" class="sapUiSmallMarginTop" appointmentSelect="handleAppointmentSelect"
+										headerDateSelect="handleHeaderDateSelect" startDateChange="handleStartDateChange" startDate="{path: 'PCModel>/startDate'}"
+										appointments="{path: 'PCModel>/appointments'}" fullDay="false" startHour="08" endHour="20">
+										<views>
+											<SinglePlanningCalendarWeekView key="WeekView" title="Week"/>
+										</views>
+										<appointments>
+											<unified:CalendarAppointment title="{PCModel>title}" text="{PCModel>text}" type="{PCModel>type}" icon="{PCModel>icon}"
+												startDate="{PCModel>startDate}" endDate="{PCModel>endDate}"></unified:CalendarAppointment>
+										</appointments>
+									</SinglePlanningCalendar>
+								</VBox>
+							</WizardStep>
+							<WizardStep id="assemblyChoiceStep" title="{i18n>checkoutAssemblyChoiceTitle}" icon="sap-icon://add-equipment" nextStep="paymentTypeStep">
+								<Text class="sapUiSmallMarginBottom" text="{i18n>checkoutAssemblyChoiceText}"/>
+								<HBox renderType="Bare" alignItems="Center" justifyContent="Center" width="100%">
+									<form:SimpleForm layout="ResponsiveGridLayout" editable="true">
+										<Label text="{i18n>checkoutAssemblyService}">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<CheckBox id="assemblyChoiceCB" selected="false">
+											<layoutData>
+												<layout:GridData span="XL8 L8 M8 S12"/>
+											</layoutData>
+										</CheckBox>
+									</form:SimpleForm>
+								</HBox>
 							</WizardStep>
 							<WizardStep id="paymentTypeStep" title="{i18n>checkoutPaymentTitle}" subsequentSteps="creditCardStep, bankAccountStep, cashOnDeliveryStep"
 								complete="goToPaymentStep" icon="sap-icon://money-bills">
@@ -169,7 +210,8 @@
 									</Input>
 								</form:SimpleForm>
 							</WizardStep>
-							<WizardStep id="invoiceStep" title="{i18n>checkoutInvoiceAddressTitle}" subsequentSteps="deliveryAddressStep, deliveryTypeStep"
+							<!--subsequentSteps="deliveryAddressStep, deliveryTypeStep"-->
+							<WizardStep id="invoiceStep" title="{i18n>checkoutInvoiceAddressTitle}" nextStep="deliveryAddressStep"
 								activate=".onCheckStepActivation" complete="invoiceAddressComplete" icon="sap-icon://sales-quote" validated="false">
 								<form:SimpleForm layout="ResponsiveGridLayout" editable="true">
 									<Label text="{i18n>checkoutInvoiceAddressDifferentDeliveryAddress}">
@@ -242,8 +284,7 @@
 									</TextArea>
 								</form:SimpleForm>
 							</WizardStep>
-							<WizardStep id="deliveryAddressStep" activate=".onCheckStepActivation" validated="false" title="{i18n>checkoutDeliveryAddressTitle}"
-								nextStep="deliveryTypeStep" icon="sap-icon://sales-quote">
+							<WizardStep id="deliveryAddressStep" activate=".onCheckStepActivation" validated="false" title="{i18n>checkoutDeliveryAddressTitle}" icon="sap-icon://sales-quote">
 								<form:SimpleForm editable="true" layout="ResponsiveGridLayout">
 									<Label text="{i18n>checkoutDeliveryAddressAddress}" required="true" labelFor="deliveryAddressAddress">
 										<layoutData>
@@ -306,47 +347,7 @@
 									</TextArea>
 								</form:SimpleForm>
 							</WizardStep>
-							<WizardStep id="deliveryTypeStep" title="{i18n>checkoutDeliveryTypeTitle}" icon="sap-icon://insurance-car" nextStep="assemblyChoiceStep">
-								<!--<Text class="sapUiSmallMarginBottom" text="{i18n>checkoutDeliveryTypeText}"/>-->
-								<!--<HBox renderType="Bare" alignItems="Center" justifyContent="Center" width="100%">-->
-								<!--	<SegmentedButton id="deliveryType" selectedKey="{/SelectedDeliveryMethod}">-->
-								<!--		<items>-->
-								<!--			<SegmentedButtonItem key="Standard Delivery" text="{i18n>checkoutDeliveryTypeStandard}"/>-->
-								<!--			<SegmentedButtonItem id="expressDelivery" key="Express Delivery" text="{i18n>checkoutDeliveryTypeExpress}"/>-->
-								<!--		</items>-->
-								<!--	</SegmentedButton>-->
-								<!--</HBox>-->
-								<VBox>
-									<SinglePlanningCalendar id="SPC1" class="sapUiSmallMarginTop" appointmentSelect="handleAppointmentSelect"
-										headerDateSelect="handleHeaderDateSelect" startDateChange="handleStartDateChange" startDate="{path: 'PCModel>/startDate'}"
-										appointments="{path: 'PCModel>/appointments'}" fullDay="false" startHour="08" endHour="20">
-										<views>
-											<SinglePlanningCalendarWeekView key="WeekView" title="Week"/>
-										</views>
-										<appointments>
-											<unified:CalendarAppointment title="{PCModel>title}" text="{PCModel>text}" type="{PCModel>type}" icon="{PCModel>icon}"
-												startDate="{PCModel>startDate}" endDate="{PCModel>endDate}"></unified:CalendarAppointment>
-										</appointments>
-									</SinglePlanningCalendar>
-								</VBox>
-							</WizardStep>
-							<WizardStep id="assemblyChoiceStep" title="{i18n>checkoutAssemblyChoiceTitle}" icon="sap-icon://add-equipment">
-								<Text class="sapUiSmallMarginBottom" text="{i18n>checkoutAssemblyChoiceText}"/>
-								<HBox renderType="Bare" alignItems="Center" justifyContent="Center" width="100%">
-									<form:SimpleForm layout="ResponsiveGridLayout" editable="true">
-										<Label text="{i18n>checkoutAssemblyService}">
-											<layoutData>
-												<layout:GridData span="XL4 L4 M4 S12"/>
-											</layoutData>
-										</Label>
-										<CheckBox id="assemblyChoiceCB" selected="false">
-											<layoutData>
-												<layout:GridData span="XL8 L8 M8 S12"/>
-											</layoutData>
-										</CheckBox>
-									</form:SimpleForm>
-								</HBox>
-							</WizardStep>
+							
 						</steps>
 					</Wizard>
 				</content>

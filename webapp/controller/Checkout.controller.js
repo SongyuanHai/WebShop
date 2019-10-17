@@ -351,6 +351,7 @@ sap.ui.define([
 		 * Shows warning message if user changes previously selected delivery address
 		 */
 		setDifferentDeliveryAddress: function () {
+			console.log("Selected CB");
 			this._setDiscardableProperty({
 				message: this.getResourceBundle().getText("checkoutControllerChangeDelivery"),
 				discardStep: this.byId("invoiceStep"),
@@ -363,10 +364,18 @@ sap.ui.define([
 		 * Called from WizardStep "invoiceStep"
 		 * shows next WizardStep "DeliveryAddressStep" or "DeliveryTypeStep" according to user selection
 		 */
-		invoiceAddressComplete: function () {
-			var sNextStepId = (this.getModel().getProperty("/DifferentDeliveryAddress")) ? "deliveryAddressStep" : "deliveryTypeStep";
-			this.byId("invoiceStep").setNextStep(this.byId(sNextStepId));
+		// invoiceAddressComplete: function () {
+		// 	var sNextStepId = (this.getModel().getProperty("/DifferentDeliveryAddress")) ? "deliveryAddressStep" : "assemblyChoiceStep";
+		// 	this.byId("invoiceStep").setNextStep(this.byId(sNextStepId));
 
+		// },
+		
+		invoiceAddressComplete: function () {
+			var bNextStep = this.getModel().getProperty("/DifferentDeliveryAddress");
+			if(bNextStep){
+				var sNextStepId ="deliveryAddressStep";
+				this.byId("invoiceStep").setNextStep(this.byId(sNextStepId));
+			}
 		},
 
 		/**
