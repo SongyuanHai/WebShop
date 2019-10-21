@@ -36,6 +36,11 @@ sap.ui.define([
 				SelectedPayment: "Credit Card",
 				SelectedDeliveryMethod: "Standard Delivery",
 				DifferentDeliveryAddress: false,
+				SelectedDeliveryAppointment: {
+					SlotFrom: "",
+					SlotTo: "",
+					Fee: ""
+				},
 				CashOnDelivery: {
 					FirstName: "",
 					LastName: "",
@@ -176,7 +181,7 @@ sap.ui.define([
 					type: CalendarDayType.Type09,
 					startDate: new Date("2018", "6", "11", "18", "0"),
 					endDate: new Date("2018", "6", "11", "20", "0")
-				},{
+				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
 					startDate: new Date("2018", "6", "12", "8", "0"),
@@ -206,7 +211,7 @@ sap.ui.define([
 					type: CalendarDayType.Type09,
 					startDate: new Date("2018", "6", "12", "18", "0"),
 					endDate: new Date("2018", "6", "12", "20", "0")
-				},{
+				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
 					startDate: new Date("2018", "6", "13", "8", "0"),
@@ -236,7 +241,7 @@ sap.ui.define([
 					type: CalendarDayType.Type09,
 					startDate: new Date("2018", "6", "13", "18", "0"),
 					endDate: new Date("2018", "6", "13", "20", "0")
-				},   {
+				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
 					startDate: new Date("2018", "6", "14", "8", "0"),
@@ -369,11 +374,11 @@ sap.ui.define([
 		// 	this.byId("invoiceStep").setNextStep(this.byId(sNextStepId));
 
 		// },
-		
+
 		invoiceAddressComplete: function () {
 			var bNextStep = this.getModel().getProperty("/DifferentDeliveryAddress");
-			if(bNextStep){
-				var sNextStepId ="deliveryAddressStep";
+			if (bNextStep) {
+				var sNextStepId = "deliveryAddressStep";
 				this.byId("invoiceStep").setNextStep(this.byId(sNextStepId));
 			}
 		},
@@ -625,6 +630,24 @@ sap.ui.define([
 
 			oNavContainer.attachAfterNavigate(_fnAfterNavigate);
 			oNavContainer.to(this.byId("wizardContentPage"));
+		},
+
+		//Customized method to handle appointment select in single planning calendar
+		//After selection, "Next Step" button is visiable
+		handleAppointmentSelect: function (oEvent) {
+			var oWizard = this.byId("shoppingCartWizard"),
+				oStep = this.byId("deliveryTypeStep"),
+				oCalendar = this.byId("SPC1");
+
+			var oSelectedAppt = oCalendar.getSelectedAppointments();
+			console.log(oSelectedAppt);
+			if (oSelectedAppt !== []) {
+				oWizard.validateStep(oStep);
+				this.getModel().setProperty("/SelectedDeliveryAppointment/Fee", oSelectedAppt[0].getTitle());
+				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotFrom", oSelectedAppt[0].getStartDate().toLocaleString());
+				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotTo", oSelectedAppt[0].getEndDate().toLocaleString());
+			}
+
 		}
 	});
 });
