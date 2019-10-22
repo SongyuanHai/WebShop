@@ -67,10 +67,10 @@
 						<attributes>
 							<ObjectAttribute visible="true"
 											 text="{SupplierName}"/>
-							<ObjectAttribute visible="{device>/system/desktop}"
-											 active="true"
-											 text="{i18n>CompareWith}"
-											 press=".compareProducts"/>
+							<!--<ObjectAttribute visible="{device>/system/desktop}"-->
+							<!--				 active="true"-->
+							<!--				 text="{i18n>CompareWith}"-->
+							<!--				 press=".compareProducts"/>-->
 						</attributes>
 						<firstStatus>
 							<ObjectStatus
