@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Westernacher Web Shop</title>
+	<title>Web Shop</title>
 
 	<!-- keep index.html mocked as well for consistency -->
 	<script
@@ -19,6 +19,16 @@
 			"sap.ui.demo.cart" : "./",
 			"sap.ui.demo.mock": "./test-resources/"
 		}'>
+	</script>
+	<script>
+		sap.ui.getCore().attachInit(function() {
+			sap.ui.require(["jquery.sap.global"], function(jQuery) {
+				jQuery.sap.setIcons({ 
+					favicon: "./img/we.png" 
+				});
+			});
+		
+		});
 	</script>
 
 </head>
