@@ -36,6 +36,8 @@ sap.ui.define([
 				SelectedPayment: "Credit Card",
 				SelectedDeliveryMethod: "Standard Delivery",
 				DifferentDeliveryAddress: false,
+				AssemblyServiceSelected: false,
+				AssemblyFee: "$199.99",
 				SelectedDeliveryAppointment: {
 					SlotFrom: "",
 					SlotTo: "",
