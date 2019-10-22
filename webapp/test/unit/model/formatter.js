@@ -40,7 +40,7 @@ sap.ui.define([
 		priceTestCase.call(this, assert, "0", "0,00");
 	});
 
-	QUnit.module("totalPrice");
+	QUnit.module("subtotalPrice");
 
 	function totalPriceTestCase(assert, oProducts, sExpectedText) {
 
@@ -52,7 +52,7 @@ sap.ui.define([
 				}).getResourceBundle();
 			}
 		};
-		var fnStubbedFormatter = formatter.totalPrice.bind(oControllerStub);
+		var fnStubbedFormatter = formatter.subtotalPrice.bind(oControllerStub);
 		var sText = fnStubbedFormatter(oProducts);
 
 		//Assert

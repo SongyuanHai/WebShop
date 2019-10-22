@@ -38,7 +38,7 @@
 					id="totalPriceText"
 					text="{
 						path : 'cartProducts>/cartEntries',
-						formatter : '.formatter.totalPrice'
+						formatter : '.formatter.subtotalPrice'
 					} USD"
 					class="sapUiTinyMarginBegin"/>
 				<ToolbarSpacer/>

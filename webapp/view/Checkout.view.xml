@@ -29,7 +29,7 @@
 								</List>
 								<Bar>
 									<contentRight>
-										<Text text="{ path : 'cartProducts>/cartEntries', formatter : '.formatter.totalPrice' } USD"/>
+										<Text text="{ path : 'cartProducts>/cartEntries', formatter : '.formatter.subtotalPrice' } USD"/>
 									</contentRight>
 								</Bar>
 							</WizardStep>
@@ -67,7 +67,7 @@
 												<layout:GridData span="XL4 L4 M4 S12"/>
 											</layoutData>
 										</Label>
-										<CheckBox id="assemblyChoiceCB" selected="{/AssemblyServiceSelected}" >
+										<CheckBox id="assemblyChoiceCB" selected="{/AssemblyServiceSelected}">
 											<layoutData>
 												<layout:GridData span="XL8 L8 M8 S12"/>
 											</layoutData>
@@ -397,6 +397,14 @@
 							</List>
 						</content>
 					</Panel>
+					<form:SimpleForm ariaLabelledBy="subtotalPriceTitle">
+						<form:toolbar>
+							<Toolbar id="toolbarSubTotalPrice">
+								<ToolbarSpacer/>
+								<Title id="subtotalPriceTitle" level="H3" titleStyle="H4" text="{ path : 'cartProducts>/cartEntries', formatter : '.formatter.subtotalPrice' }"/>
+							</Toolbar>
+						</form:toolbar>
+					</form:SimpleForm>
 					<form:SimpleForm title="" editable="false" layout="ResponsiveGridLayout" ariaLabelledBy="deliveryTypeTitle">
 						<form:toolbar>
 							<Toolbar id="toolbarShippping">
@@ -419,7 +427,8 @@
 						</form:content>
 					</form:SimpleForm>
 					<!--{= ${/DifferentDeliveryAddress}}-->
-					<form:SimpleForm title="" editable="false" layout="ResponsiveGridLayout" ariaLabelledBy="assemblyTypeTitle" visible="{= ${/AssemblyServiceSelected}}">
+					<form:SimpleForm title="" editable="false" layout="ResponsiveGridLayout" ariaLabelledBy="assemblyTypeTitle"
+						visible="{= ${/AssemblyServiceSelected}}">
 						<form:toolbar>
 							<Toolbar id="toolbarAssembly">
 								<Title id="assemblyTypeTitle" text="{i18n>checkoutSummaryTitle6}" level="H2" titleStyle="H4"/>
@@ -440,7 +449,7 @@
 						<form:toolbar>
 							<Toolbar id="toolbarTotalPrice">
 								<ToolbarSpacer/>
-								<Title id="totalPriceTitle" level="H3" titleStyle="H4" text="{ path : 'cartProducts>/cartEntries', formatter : '.formatter.totalPrice' }"/>
+								<Title id="totalPriceTitle" level="H3" titleStyle="H4" text=""/>
 							</Toolbar>
 						</form:toolbar>
 					</form:SimpleForm>

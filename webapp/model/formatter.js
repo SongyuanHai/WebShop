@@ -31,7 +31,7 @@ sap.ui.define([
 		 * @param {object} oCartEntries current cart entries
 		 * @return {string} string with the total value
 		 */
-		totalPrice: function (oCartEntries) {
+		subtotalPrice: function (oCartEntries) {
 			var oBundle = this.getResourceBundle(),
 				fTotalPrice = 0;
 
@@ -39,9 +39,34 @@ sap.ui.define([
 				var oProduct = oCartEntries[sProductId];
 				fTotalPrice += parseFloat(oProduct.Price) * oProduct.Quantity;
 			});
+			var oModel = this.getModel();
+			oModel.setProperty("/SubtotalPrice", formatter.price(fTotalPrice));
 
-			return oBundle.getText("cartTotalPrice", [formatter.price(fTotalPrice)]);
+			return oBundle.getText("cartSubtotalPrice", [formatter.price(fTotalPrice)]);
 		},
+		//total price include shipping fee and assembly fee
+		// totalPrice: function (oCartEntries) {
+		// 	var oBundle = this.getResourceBundle(),
+		// 		fTotalPrice = 0;
+
+		// 	Object.keys(oCartEntries).forEach(function (sProductId) {
+		// 		var oProduct = oCartEntries[sProductId];
+		// 		fTotalPrice += parseFloat(oProduct.Price) * oProduct.Quantity;
+		// 	});
+
+		// 	var oModel = this.getModel();
+		// 	var sDeliveryFee = oModel.getProperty("/SelectedDeliveryAppointment/Fee").replace("$", "");
+		// 	var bSelectAssembly = oModel.getProperty("/AssemblyServiceSelected");
+		// 	var fAssembly = "";
+		// 	if (bSelectAssembly) {
+		// 		fAssembly = parseFloat(oModel.getProperty("/AssemblyFee").replace("$", ""));
+		// 		fTotalPrice += fAssembly;
+		// 	}
+		// 	var fDeliveryFee = parseFloat(sDeliveryFee);
+		// 	fTotalPrice += fDeliveryFee;
+
+		// 	return oBundle.getText("cartTotalPrice", [formatter.price(fTotalPrice)]);
+		// },
 
 		/**
 		 * Returns the status text based on the product status
@@ -75,8 +100,8 @@ sap.ui.define([
 		 * @return {string} relative image URL
 		 */
 		pictureUrl: function (sUrl) {
-			if (sUrl){
-				return  sap.ui.require.toUrl(sUrl);
+			if (sUrl) {
+				return sap.ui.require.toUrl(sUrl);
 			} else {
 				return undefined;
 			}

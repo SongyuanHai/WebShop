@@ -38,6 +38,7 @@ sap.ui.define([
 				DifferentDeliveryAddress: false,
 				AssemblyServiceSelected: false,
 				AssemblyFee: "$199.99",
+				SubtotalPrice: "",
 				SelectedDeliveryAppointment: {
 					SlotFrom: "",
 					SlotTo: "",
@@ -523,6 +524,7 @@ sap.ui.define([
 			if (sap.ui.getCore().getMessageManager().getMessageModel().getData().length > 0) {
 				MessageBox.error(this.getResourceBundle().getText("popOverMessageText"));
 			} else {
+				this.updateTotalPrice();
 				this.byId("wizardNavContainer").to(this.byId("summaryPage"));
 			}
 		},
@@ -597,7 +599,7 @@ sap.ui.define([
 						//all relevant cart properties are set back to default. Content is deleted.
 						var oCartModelData = oCartModel.getData();
 						oCartModelData.cartEntries = {};
-						oCartModelData.totalPrice = 0;
+						oCartModelData.subtotalPrice = 0;
 						oCartModel.setData(oCartModelData);
 						this.getRouter().navTo(sRoute);
 					}
@@ -642,13 +644,33 @@ sap.ui.define([
 				oCalendar = this.byId("SPC1");
 
 			var oSelectedAppt = oCalendar.getSelectedAppointments();
-			console.log(oSelectedAppt);
+			//console.log(oSelectedAppt);
 			if (oSelectedAppt !== []) {
 				oWizard.validateStep(oStep);
 				this.getModel().setProperty("/SelectedDeliveryAppointment/Fee", oSelectedAppt[0].getTitle());
 				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotFrom", oSelectedAppt[0].getStartDate().toLocaleString());
 				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotTo", oSelectedAppt[0].getEndDate().toLocaleString());
 			}
+
+		},
+
+		//Update Total price in summary page
+		updateTotalPrice: function () {
+			var oBundle = this.getResourceBundle();
+			var oModel = this.getModel();
+
+			var fTotalPrice = parseFloat(oModel.getProperty("/SubtotalPrice").replace(",",""));
+			var sDeliveryFee = oModel.getProperty("/SelectedDeliveryAppointment/Fee").replace("$", "");
+			var fDeliveryFee = parseFloat(sDeliveryFee);
+			fTotalPrice += fDeliveryFee;
+			var bSelectAssembly = oModel.getProperty("/AssemblyServiceSelected");
+			var fAssembly = "";
+			if (bSelectAssembly) {
+				fAssembly = parseFloat(oModel.getProperty("/AssemblyFee").replace("$", ""));
+				fTotalPrice += fAssembly;
+			}
+			
+			this.byId("totalPriceTitle").setText(oBundle.getText("cartTotalPrice", [formatter.price(fTotalPrice)]));
 
 		}
 	});
