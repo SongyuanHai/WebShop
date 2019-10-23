@@ -645,11 +645,16 @@ sap.ui.define([
 
 			var oSelectedAppt = oCalendar.getSelectedAppointments();
 			//console.log(oSelectedAppt);
-			if (oSelectedAppt !== []) {
+			if (oSelectedAppt !== [] && oSelectedAppt[0] && oSelectedAppt[0].getTitle() !== "") {
 				oWizard.validateStep(oStep);
 				this.getModel().setProperty("/SelectedDeliveryAppointment/Fee", oSelectedAppt[0].getTitle());
 				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotFrom", oSelectedAppt[0].getStartDate().toLocaleString());
 				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotTo", oSelectedAppt[0].getEndDate().toLocaleString());
+			} else {
+				oWizard.invalidateStep(oStep);
+				this.getModel().setProperty("/SelectedDeliveryAppointment/Fee", "$0");
+				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotFrom", "");
+				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotTo", "");
 			}
 
 		},
@@ -659,7 +664,7 @@ sap.ui.define([
 			var oBundle = this.getResourceBundle();
 			var oModel = this.getModel();
 
-			var fTotalPrice = parseFloat(oModel.getProperty("/SubtotalPrice").replace(",",""));
+			var fTotalPrice = parseFloat(oModel.getProperty("/SubtotalPrice").replace(",", ""));
 			var sDeliveryFee = oModel.getProperty("/SelectedDeliveryAppointment/Fee").replace("$", "");
 			var fDeliveryFee = parseFloat(sDeliveryFee);
 			fTotalPrice += fDeliveryFee;
@@ -669,7 +674,7 @@ sap.ui.define([
 				fAssembly = parseFloat(oModel.getProperty("/AssemblyFee").replace("$", ""));
 				fTotalPrice += fAssembly;
 			}
-			
+
 			this.byId("totalPriceTitle").setText(oBundle.getText("cartTotalPrice", [formatter.price(fTotalPrice)]));
 
 		}
