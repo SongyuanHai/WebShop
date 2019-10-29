@@ -9,7 +9,8 @@ sap.ui.define([
 	"sap/m/MessagePopover",
 	"sap/m/MessagePopoverItem",
 	"../model/EmailType",
-	"sap/ui/unified/library"
+	"sap/ui/unified/library",
+	'sap/m/MessageToast'
 ], function (
 	BaseController,
 	cart,
@@ -20,7 +21,7 @@ sap.ui.define([
 	Link,
 	MessagePopover,
 	MessagePopoverItem,
-	EmailType, unifiedLibrary) {
+	EmailType, unifiedLibrary, MessageToast) {
 	"use strict";
 	var CalendarDayType = unifiedLibrary.CalendarDayType;
 	return BaseController.extend("sap.ui.demo.cart.controller.Checkout", {
@@ -78,187 +79,187 @@ sap.ui.define([
 
 			var oPCModel = new JSONModel("PCModel");
 			oPCModel.setData({
-				startDate: new Date("2018", "6", "9"),
+				startDate: new Date("2019", "9", "27"),
 				appointments: [{
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "8", "8", "0"),
-					endDate: new Date("2018", "6", "8", "10", "0")
+					startDate: new Date("2019", "9", "27", "8", "0"),
+					endDate: new Date("2019", "9", "27", "10", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "8", "10", "0"),
-					endDate: new Date("2018", "6", "8", "12", "0")
+					startDate: new Date("2019", "9", "27", "10", "0"),
+					endDate: new Date("2019", "9", "27", "12", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "8", "12", "0"),
-					endDate: new Date("2018", "6", "8", "14", "0")
+					startDate: new Date("2019", "9", "27", "12", "0"),
+					endDate: new Date("2019", "9", "27", "14", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "9", "8", "0"),
-					endDate: new Date("2018", "6", "9", "10", "0")
+					startDate: new Date("2019", "9", "28", "8", "0"),
+					endDate: new Date("2019", "9", "28", "10", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "9", "10", "0"),
-					endDate: new Date("2018", "6", "9", "12", "0")
+					startDate: new Date("2019", "9", "28", "10", "0"),
+					endDate: new Date("2019", "9", "28", "12", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "9", "12", "0"),
-					endDate: new Date("2018", "6", "9", "14", "0")
+					startDate: new Date("2019", "9", "28", "12", "0"),
+					endDate: new Date("2019", "9", "28", "14", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "9", "14", "0"),
-					endDate: new Date("2018", "6", "9", "16", "0")
+					startDate: new Date("2019", "9", "28", "14", "0"),
+					endDate: new Date("2019", "9", "28", "16", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "9", "16", "0"),
-					endDate: new Date("2018", "6", "9", "18", "0")
+					startDate: new Date("2019", "9", "28", "16", "0"),
+					endDate: new Date("2019", "9", "28", "18", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "9", "18", "0"),
-					endDate: new Date("2018", "6", "9", "20", "0")
+					startDate: new Date("2019", "9", "28", "18", "0"),
+					endDate: new Date("2019", "9", "28", "20", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "10", "8", "0"),
-					endDate: new Date("2018", "6", "10", "10", "0")
+					startDate: new Date("2019", "9", "29", "8", "0"),
+					endDate: new Date("2019", "9", "29", "10", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "10", "10", "0"),
-					endDate: new Date("2018", "6", "10", "12", "0")
+					startDate: new Date("2019", "9", "29", "10", "0"),
+					endDate: new Date("2019", "9", "29", "12", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "10", "12", "0"),
-					endDate: new Date("2018", "6", "10", "14", "0")
+					startDate: new Date("2019", "9", "29", "12", "0"),
+					endDate: new Date("2019", "9", "29", "14", "0")
 				}, {
 					title: "$15",
 					type: CalendarDayType.Type08,
-					startDate: new Date("2018", "6", "10", "14", "0"),
-					endDate: new Date("2018", "6", "10", "16", "0")
+					startDate: new Date("2019", "9", "29", "14", "0"),
+					endDate: new Date("2019", "9", "29", "16", "0")
 				}, {
 					title: "$15",
 					type: CalendarDayType.Type08,
-					startDate: new Date("2018", "6", "10", "16", "0"),
-					endDate: new Date("2018", "6", "10", "18", "0")
+					startDate: new Date("2019", "9", "29", "16", "0"),
+					endDate: new Date("2019", "9", "29", "18", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "10", "18", "0"),
-					endDate: new Date("2018", "6", "10", "20", "0")
+					startDate: new Date("2019", "9", "29", "18", "0"),
+					endDate: new Date("2019", "9", "29", "20", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "11", "8", "0"),
-					endDate: new Date("2018", "6", "11", "10", "0")
+					startDate: new Date("2019", "9", "30", "8", "0"),
+					endDate: new Date("2019", "9", "30", "10", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "11", "10", "0"),
-					endDate: new Date("2018", "6", "11", "12", "0")
+					startDate: new Date("2019", "9", "30", "10", "0"),
+					endDate: new Date("2019", "9", "30", "12", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "11", "12", "0"),
-					endDate: new Date("2018", "6", "11", "14", "0")
+					startDate: new Date("2019", "9", "30", "12", "0"),
+					endDate: new Date("2019", "9", "30", "14", "0")
 				}, {
 					title: "$15",
 					type: CalendarDayType.Type08,
-					startDate: new Date("2018", "6", "11", "14", "0"),
-					endDate: new Date("2018", "6", "11", "16", "0")
+					startDate: new Date("2019", "9", "30", "14", "0"),
+					endDate: new Date("2019", "9", "30", "16", "0")
 				}, {
 					title: "$15",
 					type: CalendarDayType.Type08,
-					startDate: new Date("2018", "6", "11", "16", "0"),
-					endDate: new Date("2018", "6", "11", "18", "0")
+					startDate: new Date("2019", "9", "30", "16", "0"),
+					endDate: new Date("2019", "9", "30", "18", "0")
+				}, {
+					title: "Not Available - Full",
+					type: CalendarDayType.Type02,
+					startDate: new Date("2019", "9", "30", "18", "0"),
+					endDate: new Date("2019", "9", "30", "20", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "11", "18", "0"),
-					endDate: new Date("2018", "6", "11", "20", "0")
+					startDate: new Date("2019", "9", "31", "8", "0"),
+					endDate: new Date("2019", "9", "31", "10", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "12", "8", "0"),
-					endDate: new Date("2018", "6", "12", "10", "0")
+					startDate: new Date("2019", "9", "31", "10", "0"),
+					endDate: new Date("2019", "9", "31", "12", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "12", "10", "0"),
-					endDate: new Date("2018", "6", "12", "12", "0")
+					startDate: new Date("2019", "9", "31", "12", "0"),
+					endDate: new Date("2019", "9", "31", "14", "0")
 				}, {
-					title: "$20",
-					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "12", "12", "0"),
-					endDate: new Date("2018", "6", "12", "14", "0")
+					title: "Not Available - Full",
+					type: CalendarDayType.Type02,
+					startDate: new Date("2019", "9", "31", "14", "0"),
+					endDate: new Date("2019", "9", "31", "16", "0")
 				}, {
 					title: "$15",
 					type: CalendarDayType.Type08,
-					startDate: new Date("2018", "6", "12", "14", "0"),
-					endDate: new Date("2018", "6", "12", "16", "0")
-				}, {
-					title: "$15",
-					type: CalendarDayType.Type08,
-					startDate: new Date("2018", "6", "12", "16", "0"),
-					endDate: new Date("2018", "6", "12", "18", "0")
+					startDate: new Date("2019", "9", "31", "16", "0"),
+					endDate: new Date("2019", "9", "31", "18", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "12", "18", "0"),
-					endDate: new Date("2018", "6", "12", "20", "0")
+					startDate: new Date("2019", "9", "31", "18", "0"),
+					endDate: new Date("2019", "9", "31", "20", "0")
+				}, {
+					title: "Not Available - Full",
+					type: CalendarDayType.Type02,
+					startDate: new Date("2019", "10", "1", "8", "0"),
+					endDate: new Date("2019", "10", "1", "10", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "13", "8", "0"),
-					endDate: new Date("2018", "6", "13", "10", "0")
+					startDate: new Date("2019", "10", "1", "10", "0"),
+					endDate: new Date("2019", "10", "1", "12", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "13", "10", "0"),
-					endDate: new Date("2018", "6", "13", "12", "0")
+					startDate: new Date("2019", "10", "1", "12", "0"),
+					endDate: new Date("2019", "10", "1", "14", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "13", "12", "0"),
-					endDate: new Date("2018", "6", "13", "14", "0")
+					startDate: new Date("2019", "10", "1", "14", "0"),
+					endDate: new Date("2019", "10", "1", "16", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "13", "14", "0"),
-					endDate: new Date("2018", "6", "13", "16", "0")
+					startDate: new Date("2019", "10", "1", "16", "0"),
+					endDate: new Date("2019", "10", "1", "18", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "13", "16", "0"),
-					endDate: new Date("2018", "6", "13", "18", "0")
+					startDate: new Date("2019", "10", "1", "18", "0"),
+					endDate: new Date("2019", "10", "1", "20", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "13", "18", "0"),
-					endDate: new Date("2018", "6", "13", "20", "0")
+					startDate: new Date("2019", "10", "2", "8", "0"),
+					endDate: new Date("2019", "10", "2", "10", "0")
 				}, {
 					title: "$20",
 					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "14", "8", "0"),
-					endDate: new Date("2018", "6", "14", "10", "0")
+					startDate: new Date("2019", "10", "2", "10", "0"),
+					endDate: new Date("2019", "10", "2", "12", "0")
 				}, {
-					title: "$20",
-					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "14", "10", "0"),
-					endDate: new Date("2018", "6", "14", "12", "0")
-				}, {
-					title: "$20",
-					type: CalendarDayType.Type09,
-					startDate: new Date("2018", "6", "14", "12", "0"),
-					endDate: new Date("2018", "6", "14", "14", "0")
+					title: "Not Available - Full",
+					type: CalendarDayType.Type02,
+					startDate: new Date("2019", "10", "2", "12", "0"),
+					endDate: new Date("2019", "10", "2", "14", "0")
 				}]
 			});
 
@@ -523,6 +524,9 @@ sap.ui.define([
 		checkCompleted: function () {
 			if (sap.ui.getCore().getMessageManager().getMessageModel().getData().length > 0) {
 				MessageBox.error(this.getResourceBundle().getText("popOverMessageText"));
+			} else if (this.getModel().getProperty("/SelectedDeliveryAppointment/SlotFrom") === "") {
+				//Determine if selected delivery time is valid or not
+				MessageToast.show("Please select a valid delivery time");
 			} else {
 				this.updateTotalPrice();
 				this.byId("wizardNavContainer").to(this.byId("summaryPage"));
@@ -645,7 +649,7 @@ sap.ui.define([
 
 			var oSelectedAppt = oCalendar.getSelectedAppointments();
 			//console.log(oSelectedAppt);
-			if (oSelectedAppt !== [] && oSelectedAppt[0] && oSelectedAppt[0].getTitle() !== "") {
+			if (oSelectedAppt !== [] && oSelectedAppt[0] && oSelectedAppt[0].getTitle() !== "" && oSelectedAppt[0].getTitle().includes("$")) {
 				oWizard.validateStep(oStep);
 				this.getModel().setProperty("/SelectedDeliveryAppointment/Fee", oSelectedAppt[0].getTitle());
 				this.getModel().setProperty("/SelectedDeliveryAppointment/SlotFrom", oSelectedAppt[0].getStartDate().toLocaleString());
