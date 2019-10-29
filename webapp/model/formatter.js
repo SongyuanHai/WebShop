@@ -132,7 +132,20 @@ sap.ui.define([
 				bCollection2Filled = !!(oCollection2 && Object.keys(oCollection2).length);
 
 			return bCollection1Filled || bCollection2Filled;
-		}
+		},
+
+		statusTextBy: function (sStatus) {
+			var oBundle = this.getResourceBundle();
+
+			var mStatusText = {
+				"A": oBundle.getText("statusA") + " By",
+				"O": oBundle.getText("statusO") + " By",
+				"D": oBundle.getText("statusD") + " By"
+			};
+
+			return mStatusText[sStatus] || sStatus;
+		},
+
 	};
 
 	return formatter;

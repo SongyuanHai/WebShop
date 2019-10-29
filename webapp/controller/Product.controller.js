@@ -1,35 +1,42 @@
 sap.ui.define([
 	"./BaseController",
 	"../model/formatter"
-], function(
+], function (
 	BaseController,
 	formatter) {
 	"use strict";
 
 	return BaseController.extend("sap.ui.demo.cart.controller.Product", {
-		formatter : formatter,
+		formatter: formatter,
 
-		onInit : function () {
+		onInit: function () {
+
+			// var oAdditionalModel = new JSONModel("additionalModel", {
+			// 	availableDate: "Nov 11, 2019",
+			// });
+
+			// this.setModel(oAdditionalModel, "additionalModel");
+
 			var oComponent = this.getOwnerComponent();
 			this._router = oComponent.getRouter();
 			this._router.getRoute("product").attachPatternMatched(this._routePatternMatched, this);
 
 			this._router.getTarget("product").attachDisplay(function (oEvent) {
-				this.fnUpdateProduct(oEvent.getParameter("data").productId);// update the binding based on products cart selection
+				this.fnUpdateProduct(oEvent.getParameter("data").productId); // update the binding based on products cart selection
 			}, this);
 		},
 
-		_routePatternMatched: function(oEvent) {
+		_routePatternMatched: function (oEvent) {
 			var sId = oEvent.getParameter("arguments").productId,
 				oView = this.getView(),
 				oModel = oView.getModel();
 			// the binding should be done after insuring that the metadata is loaded successfully
 			oModel.metadataLoaded().then(function () {
 				var sPath = "/" + this.getModel().createKey("Products", {
-						ProductId: sId
-					});
+					ProductId: sId
+				});
 				oView.bindElement({
-					path : sPath,
+					path: sPath,
 					events: {
 						dataRequested: function () {
 							oView.setBusy(true);
@@ -43,7 +50,7 @@ sap.ui.define([
 				//if there is no data the model has to request new data
 				if (!oData) {
 					oView.setBusyIndicatorDelay(0);
-					oView.getElementBinding().attachEventOnce("dataReceived", function() {
+					oView.getElementBinding().attachEventOnce("dataReceived", function () {
 						// reset to default
 						oView.setBusyIndicatorDelay(null);
 						this._checkIfProductAvailable(sPath);
@@ -52,7 +59,7 @@ sap.ui.define([
 			}.bind(this));
 		},
 
-		fnUpdateProduct: function(productId) {
+		fnUpdateProduct: function (productId) {
 			var sPath = "/Products('" + productId + "')",
 				fnCheck = function () {
 					this._checkIfProductAvailable(sPath);
@@ -66,7 +73,7 @@ sap.ui.define([
 			});
 		},
 
-		_checkIfProductAvailable: function(sPath) {
+		_checkIfProductAvailable: function (sPath) {
 			var oModel = this.getModel();
 			var oData = oModel.getData(sPath);
 
