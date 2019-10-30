@@ -61,20 +61,93 @@
 									</SinglePlanningCalendar>
 								</VBox>
 							</WizardStep>
-							<WizardStep id="assemblyChoiceStep" title="{i18n>checkoutAssemblyChoiceTitle}" icon="sap-icon://add-equipment" nextStep="paymentTypeStep">
+							<WizardStep id="assemblyChoiceStep" title="{i18n>checkoutAssemblyChoiceTitle}" icon="sap-icon://add-equipment" nextStep="paymentTypeStep"
+								complete="onCheckAdditionalServiceSelected">
 								<Text class="sapUiSmallMarginBottom" text="{i18n>checkoutAssemblyChoiceText}"/>
 								<HBox renderType="Bare" alignItems="Center" justifyContent="Center" width="100%">
 									<form:SimpleForm layout="ResponsiveGridLayout" editable="true">
-										<Label text="{i18n>checkoutAssemblyService}">
+										<Label text="A. Installation Service – $29.99">
 											<layoutData>
 												<layout:GridData span="XL4 L4 M4 S12"/>
 											</layoutData>
 										</Label>
-										<CheckBox id="assemblyChoiceCB" selected="{/AssemblyServiceSelected}">
+										<CheckBox id="InstallServiceCB" selected="{/AssemblyServiceSelected}">
 											<layoutData>
 												<layout:GridData span="XL8 L8 M8 S12"/>
 											</layoutData>
 										</CheckBox>
+										<Label text="i">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<Text text="Connect an electronic device"/>
+										<Label text="ii">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<Text text="Test the connection (e.g. TV)"/>
+										<Label text="B. Advanced Installation Service – $69.99">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<CheckBox id="AdvInstallServiceCB" selected="{/AdvAssemblyServiceSelected}">
+											<layoutData>
+												<layout:GridData span="XL8 L8 M8 S12"/>
+											</layoutData>
+										</CheckBox>
+										<Label text="i">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<Text text="Installation where license is required"/>
+										<Label text="ii">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<Text text="Gas / Water supply"/>
+										<Label text="C. Green Return Service – $14.99">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<CheckBox id="GreenReturnServiceCB" selected="{/GreenReturnServiceSelected}">
+											<layoutData>
+												<layout:GridData span="XL8 L8 M8 S12"/>
+											</layoutData>
+										</CheckBox>
+										<Label text="i">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<Text text="Return the old device"/>
+										<Label text="D. Indoor Delivery Service – $9.99">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<CheckBox id="IndoorDeliveryServiceCB" selected="{/IndoorDeliveryServiceSelected}">
+											<layoutData>
+												<layout:GridData span="XL8 L8 M8 S12"/>
+											</layoutData>
+										</CheckBox>
+										<Label text="i">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<Text text="Items will be carried to the consumer's home"/>
+										<Label text="ii">
+											<layoutData>
+												<layout:GridData span="XL4 L4 M4 S12"/>
+											</layoutData>
+										</Label>
+										<Text text="Placement at the desired location within the consumer's home"/>
 									</form:SimpleForm>
 								</HBox>
 							</WizardStep>
@@ -432,7 +505,7 @@
 					</form:SimpleForm>
 					<!--{= ${/DifferentDeliveryAddress}}-->
 					<form:SimpleForm title="" editable="false" layout="ResponsiveGridLayout" ariaLabelledBy="assemblyTypeTitle"
-						visible="{= ${/AssemblyServiceSelected}}">
+						visible="{= ${/AdditionalServiceSelected}}">
 						<form:toolbar>
 							<Toolbar id="toolbarAssembly">
 								<Title id="assemblyTypeTitle" text="{i18n>checkoutSummaryTitle6}" level="H2" titleStyle="H4"/>
@@ -445,8 +518,14 @@
 							</Toolbar>
 						</form:toolbar>
 						<form:content>
-							<Label text="{i18n>assemblyFee}"/>
-							<Text id="assemblyFee" text="{/AssemblyFee}"/>
+							<Label text="Installation Service" visible="{= ${/AssemblyServiceSelected}}"/>
+							<Text id="assemblyFee" text="{/AssemblyFee}" visible="{= ${/AssemblyServiceSelected}}"/>
+							<Label text="Advanced Installation Service" visible="{= ${/AdvAssemblyServiceSelected}}"/>
+							<Text id="advAssemblyFee" text="{/AdvAssemblyFee}" visible="{= ${/AdvAssemblyServiceSelected}}"/>
+							<Label text="Green Return Service " visible="{= ${/GreenReturnServiceSelected}}"/>
+							<Text id="greenReturnFee" text="{/GreenReturnServiceFee}" visible="{= ${/GreenReturnServiceSelected}}"/>
+							<Label text="Indoor Delivery Service" visible="{= ${/IndoorDeliveryServiceSelected}}"/>
+							<Text id="indoorDeliveryFee" text="{/IndoorDeliveryFee}" visible="{= ${/IndoorDeliveryServiceSelected}}"/>
 						</form:content>
 					</form:SimpleForm>
 					<form:SimpleForm ariaLabelledBy="totalPriceTitle">

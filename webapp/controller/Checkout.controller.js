@@ -37,8 +37,15 @@ sap.ui.define([
 				SelectedPayment: "Credit Card",
 				SelectedDeliveryMethod: "Standard Delivery",
 				DifferentDeliveryAddress: false,
+				AdditionalServiceSelected: false,
 				AssemblyServiceSelected: false,
-				AssemblyFee: "$199.99",
+				AssemblyFee: "$29.99",
+				AdvAssemblyServiceSelected: false,
+				AdvAssemblyFee: "$69.99",
+				GreenReturnServiceSelected: false,
+				GreenReturnServiceFee: "$14.99",
+				IndoorDeliveryServiceSelected: false,
+				IndoorDeliveryFee: "$9.99",
 				SubtotalPrice: "",
 				SelectedDeliveryAppointment: {
 					SlotFrom: "",
@@ -528,6 +535,7 @@ sap.ui.define([
 				//Determine if selected delivery time is valid or not
 				MessageToast.show("Please select a valid delivery time");
 			} else {
+				this.onCheckAdditionalServiceSelected();
 				this.updateTotalPrice();
 				this.byId("wizardNavContainer").to(this.byId("summaryPage"));
 			}
@@ -673,14 +681,41 @@ sap.ui.define([
 			var fDeliveryFee = parseFloat(sDeliveryFee);
 			fTotalPrice += fDeliveryFee;
 			var bSelectAssembly = oModel.getProperty("/AssemblyServiceSelected");
-			var fAssembly = "";
+			var bSelectAdvAssembly = oModel.getProperty("/AdvAssemblyServiceSelected");
+			var bSelectGreenReturn = oModel.getProperty("/GreenReturnServiceSelected");
+			var bSelectIndoorDelivery = oModel.getProperty("/IndoorDeliveryServiceSelected");
+
+			var fServiceFee = "";
 			if (bSelectAssembly) {
-				fAssembly = parseFloat(oModel.getProperty("/AssemblyFee").replace("$", ""));
-				fTotalPrice += fAssembly;
+				fServiceFee = parseFloat(oModel.getProperty("/AssemblyFee").replace("$", ""));
+				fTotalPrice += fServiceFee;
+			}
+			if (bSelectAdvAssembly) {
+				fServiceFee = parseFloat(oModel.getProperty("/AdvAssemblyFee").replace("$", ""));
+				fTotalPrice += fServiceFee;
+			}
+			if (bSelectGreenReturn) {
+				fServiceFee = parseFloat(oModel.getProperty("/GreenReturnServiceFee").replace("$", ""));
+				fTotalPrice += fServiceFee;
+			}
+			if (bSelectIndoorDelivery) {
+				fServiceFee = parseFloat(oModel.getProperty("/IndoorDeliveryFee").replace("$", ""));
+				fTotalPrice += fServiceFee;
 			}
 
 			this.byId("totalPriceTitle").setText(oBundle.getText("cartTotalPrice", [formatter.price(fTotalPrice)]));
 
+		},
+
+		onCheckAdditionalServiceSelected: function () {
+			var oBundle = this.getResourceBundle();
+			var oModel = this.getModel();
+			if (oModel.getProperty("/AssemblyServiceSelected") || oModel.getProperty("/AdvAssemblyServiceSelected") || oModel.getProperty(
+					"/GreenReturnServiceSelected") || oModel.getProperty("/IndoorDeliveryServiceSelected")) {
+				this.getModel().setProperty("/AdditionalServiceSelected", true);
+			} else {
+				this.getModel().setProperty("/AdditionalServiceSelected", false);
+			}
 		}
 	});
 });
